@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from openpyxl import load_workbook
 
 # Read the traffic data
 traffic_data = pd.read_csv("data/traffic_counts.csv")
@@ -11,9 +12,8 @@ traffic_data["Total"] = (
     + traffic_data["Buses"]
     + traffic_data["Trucks"]
 )
-#Save the updated data to Excel with headings
-from openpyxl import load_workbook
 
+# Save the updated data to Excel with headings
 with pd.ExcelWriter("traffic_analysis.xlsx", engine="openpyxl") as writer:
     traffic_data.to_excel(
         writer,
@@ -22,6 +22,7 @@ with pd.ExcelWriter("traffic_analysis.xlsx", engine="openpyxl") as writer:
         index=False
     )
 
+# Add headings to Excel file
 workbook = load_workbook("traffic_analysis.xlsx")
 sheet = workbook["Traffic Analysis"]
 
@@ -42,10 +43,11 @@ print(f"Maximum Traffic: {traffic_data['Total'].max()} vehicles")
 print(f"Minimum Traffic: {traffic_data['Total'].min()} vehicles")
 print(f"Average Traffic: {traffic_data['Total'].mean():.2f} vehicles")
 
-# Create graph
-plt.figure(figsize=(10,5))
 
-# Plot traffic line
+# Create graph
+plt.figure(figsize=(10, 5))
+
+# Plot traffic volume
 plt.plot(
     traffic_data["Time"],
     traffic_data["Total"],
@@ -62,7 +64,7 @@ plt.scatter(
     label="Peak Hour"
 )
 
-# Add label to the peak point
+# Add value label on peak point
 plt.text(
     peak_hour["Time"],
     peak_hour["Total"] + 10,
@@ -77,6 +79,8 @@ plt.ylabel("Number of Vehicles")
 plt.grid(True)
 plt.legend()
 
+# Save graph
 plt.savefig("images/traffic_volume.png")
 
+# Display graph
 plt.show()
