@@ -11,12 +11,28 @@ traffic_data["Total"] = (
     + traffic_data["Buses"]
     + traffic_data["Trucks"]
 )
-# Save the updated data to Excel
-traffic_data.to_excel("traffic_analysis.xlsx", index=False)
+#Save the updated data to Excel with headings
+from openpyxl import load_workbook
+
+with pd.ExcelWriter("traffic_analysis.xlsx", engine="openpyxl") as writer:
+    traffic_data.to_excel(
+        writer,
+        sheet_name="Traffic Analysis",
+        startrow=2,
+        index=False
+    )
+
+workbook = load_workbook("traffic_analysis.xlsx")
+sheet = workbook["Traffic Analysis"]
+
+sheet["A1"] = "Hourly Traffic Volume Analysis"
+sheet["A2"] = "Traffic Data Analysis Using Python"
+
+workbook.save("traffic_analysis.xlsx")
 
 print("Excel file created successfully!")
 
-## Find the peak hour
+# Find the peak hour
 peak_hour = traffic_data.loc[traffic_data["Total"].idxmax()]
 
 print("Traffic Statistics")
