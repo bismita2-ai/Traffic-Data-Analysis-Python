@@ -7,7 +7,7 @@ A Python-based traffic data analysis project to process hourly vehicle count dat
 - Python
 - Pandas
 - Matplotlib
-- NumPy
+- OpenPyXL
 
 ## Project Features
 ✓ Traffic data processing
