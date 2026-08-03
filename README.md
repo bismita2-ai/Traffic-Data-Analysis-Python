@@ -23,3 +23,9 @@ Maximum traffic volume: 595 vehicles
 ## Author
 Bismita Gautam
 Civil Engineering Graduate
+
+## Visualization
+
+Hourly traffic volume analysis:
+
+![Traffic Volume](images/traffic_volume.png)
